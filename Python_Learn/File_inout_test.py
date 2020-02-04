@@ -210,6 +210,10 @@ Exercise 910
 #===============================
 #宣告變數
 #===============================
+#所有人資料List
+Data = []
+#暫存所有人資料List
+Temp = []
 #男生人數
 Male_Number = 0
 #女生人數
@@ -225,11 +229,24 @@ Line = InputFile.replace('\n',' ')
 #將InputFile的內容，依空格為單位進行分割
 Line = Line.split(' ')
 
-print(Line)
+print(Line , '\n')
+
+#將資料分隔成一個人一組('學號', '姓名', '性別', '科系')
+for i in range(4 , len(Line) , 4):
+    Temp = [eval(Line[i]) , Line[i+1] , eval(Line[i+2]) , Line[i+3]]
+    Data.append(Temp);
 
 #計算人數
-for i in range(6 , len(Line) , 4):
-    if(Line[i] == '0'): Female_Number = Female_Number + 1
+for i in range(0,len(Data)):
+    if(Data[i][2] == 0): Female_Number = Female_Number + 1
     else: Male_Number = Male_Number + 1
 
-print('Female_Number: ',Female_Number ,'\n', 'Male_Number: ' , Male_Number)
+#輸出
+print('學號', '姓名', '性別', '科系')
+
+for i in range(0,len(Data)):
+    print('{ID}  {Name}  {Sex}   {Department}' .format(ID=Data[i][0],Name=Data[i][1],Sex=Data[i][2],Department=Data[i][3]))
+
+print()
+print('Female_Number: ',Female_Number)
+print('Male_Number: ' , Male_Number)
