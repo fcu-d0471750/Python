@@ -205,7 +205,7 @@ Exercise 910
 303  小華  0    語文
 404  篠美  0    應英
 505  安凱  1    日文
-'''
+
 
 #===============================
 #宣告變數
@@ -250,3 +250,45 @@ for i in range(0,len(Data)):
 print()
 print('Female_Number: ',Female_Number)
 print('Male_Number: ' , Male_Number)
+'''
+
+'''
+#讀取Windows文字，預設格式為ANSI
+
+# coding=MS950
+#讀取檔案(模式: 讀取r)
+FileObject = open('read_5.txt' , 'r' , encoding='ANSI')
+#讀取檔案內容
+InputFile = FileObject.read()
+#印出檔案內容
+print(InputFile)
+#關閉檔案
+FileObject.close()
+'''
+
+'''
+讀取內容為中文的檔案
+將txt另存新檔存成utf-8的格式
+'''
+#讀取檔案(模式: 讀取r)
+FileObject = open('chinese_read_1.txt' , 'r' , encoding='utf-8')
+#讀取檔案內容
+InputFile = FileObject.read()
+#印出檔案內容
+print(InputFile)
+#關閉檔案
+FileObject.close()
+
+'''
+寫入內容為中文的檔案
+'''
+#要寫入的中文字串
+NewStr = '如何用Python(复制)写入中文txt文件'
+
+#讀取檔案(模式: 寫入w 或 接續a)
+FileObject = open('chinese_read_1.txt' , 'a' , encoding='utf-8')
+#寫入檔案，先用encode編碼，再用decode解碼
+FileObject.write(NewStr.encode('utf-8').decode('utf-8'))
+#關閉檔案
+FileObject.close()
+
