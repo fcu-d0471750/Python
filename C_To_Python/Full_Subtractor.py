@@ -62,6 +62,9 @@ for i in range(0,32,1):
         C = F_Subtractor( ((Input_1>>i)&1) , ((Input_2>>i)&1) , C , i)
 
 #==============================
-#印出
+#印出，(由於Python不能像C++一樣自動將Difference視為二補數轉成十進制，所以將Difference - 4294967296來解決計算結果為負數的問題)
 #==============================
-print(Difference)
+if(Input_1 >= Input_2):
+    print(Difference)
+else:
+    print(Difference - 4294967296)
