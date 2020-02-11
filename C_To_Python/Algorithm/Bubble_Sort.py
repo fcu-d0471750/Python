@@ -65,7 +65,7 @@ def Bubble_Sort_To_Small(Initial_Data):
 #產生亂數，填滿要排序的資料
 #==============================
 #依照Number，產生幾次亂數
-for i in range(0,100):
+for i in range(0,Number):
     # Temp暫存亂數(0~9999)
     Temp = random.randint(0,9999)
     # 把Tepm加進Initial_Data儲存起來
