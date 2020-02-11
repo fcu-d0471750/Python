@@ -65,7 +65,7 @@ def Quick_Sort_To_Big(Initial_Data , Left , Right):
     j = Right
 
     #==============================
-    #依照基準點排序
+    #依照基準點排序(將List分成兩堆，左邊為比基準點小的數字，右邊為比基準點大的數字)
     #==============================
     while(True):
         #向右邊找比基準點大的數字
@@ -89,7 +89,7 @@ def Quick_Sort_To_Big(Initial_Data , Left , Right):
         Initial_Data = Swap(Initial_Data , i , j)
         
 
-    #將基準點跟最小的數字交換位置
+    #將基準點跟最小的數字交換位置(j的位置正好為可以將List分為兩堆的位置，所以跟Left的Value交換)
     Initial_Data = Swap(Initial_Data , Left , j)
 
     #將分類好的左邊繼續進行QuickSort
@@ -126,7 +126,7 @@ def Quick_Sort_To_Small(Initial_Data , Left , Right):
     j = Right
 
     #==============================
-    #依照基準點排序
+    #依照基準點排序(將List分成兩堆，左邊為比基準點大的數字，右邊為比基準點小的數字)
     #==============================
     while(True):
         #向右邊找比基準點小的數字
@@ -150,7 +150,7 @@ def Quick_Sort_To_Small(Initial_Data , Left , Right):
         Initial_Data = Swap(Initial_Data , i , j)
 
 
-    #將基準點跟最小的數字交換位置
+    #將基準點跟最小的數字交換位置(j的位置正好為可以將List分為兩堆的位置，所以跟Left的Value交換)
     Initial_Data = Swap(Initial_Data , Left , j)
 
     #將分類好的左邊繼續進行QuickSort
