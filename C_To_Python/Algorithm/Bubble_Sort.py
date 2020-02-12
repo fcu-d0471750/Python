@@ -25,7 +25,7 @@ Temp = 0
 #=================================================================================
 
 #==============================
-#方法: Bubble Sort(小 -> 大)
+#方法: Bubble Sort(Initial_Data: 要排序的資料List)(小 -> 大)
 #==============================
 def Bubble_Sort_To_Big(Initial_Data):
     #暫存最小值
@@ -41,7 +41,7 @@ def Bubble_Sort_To_Big(Initial_Data):
     return Initial_Data
 
 #==============================
-#方法: Bubble Sort(大 -> 小)
+#方法: Bubble Sort(Initial_Data: 要排序的資料List)(大 -> 小)
 #==============================
 def Bubble_Sort_To_Small(Initial_Data):
     #暫存最大值
@@ -72,7 +72,7 @@ for i in range(0,Number):
     Initial_Data.append(Temp)
 
 #印出排序前的資料
-print('Before Sort: \n', Initial_Data)
+print('Before Bubble Sort: \n', Initial_Data)
 
 #==============================
 #執行Bubble Sort
@@ -80,9 +80,9 @@ print('Before Sort: \n', Initial_Data)
 #Bubble Sort(小 -> 大)
 Sorted_Data = Bubble_Sort_To_Big(Initial_Data)
 #印出排序後的資料
-print('After Sort(Small -> Big): \n', Sorted_Data)
+print('After Bubble Sort(Small -> Big): \n', Sorted_Data)
 
 #Bubble Sort(大 -> 小)
 Sorted_Data = Bubble_Sort_To_Small(Initial_Data)
 #印出排序後的資料
-print('After Sort(Big -> Small): \n', Sorted_Data)
+print('After Bubble Sort(Big -> Small): \n', Sorted_Data)

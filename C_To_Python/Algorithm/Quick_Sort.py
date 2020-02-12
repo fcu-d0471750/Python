@@ -15,7 +15,7 @@ Initial_Data = []
 Sorted_Data = []
 
 #int: 共幾筆資料
-Number = 10
+Number = 100
 
 #int: 暫存亂數
 Temp = 0
@@ -39,7 +39,7 @@ def Swap(Initial_Data , Pos_1 , Pos_2):
     return Initial_Data
 
 #==============================
-#方法: Quick Sort(小 -> 大)
+#方法: Quick Sort(Initial_Data: 要排序的資料List , Left:左邊的起點編號 , Right: 右邊的起點編號)(小 -> 大)
 #==============================
 def Quick_Sort_To_Big(Initial_Data , Left , Right):
     #基準點
@@ -100,7 +100,7 @@ def Quick_Sort_To_Big(Initial_Data , Left , Right):
     return Initial_Data
 
 #==============================
-#方法: Quick Sort(大 -> 小)
+#方法: Quick Sort(Initial_Data: 要排序的資料List , Left:左邊的起點編號 , Right: 右邊的起點編號)(大 -> 小)
 #==============================
 def Quick_Sort_To_Small(Initial_Data , Left , Right):
     #基準點
@@ -174,7 +174,7 @@ for i in range(0,Number):
     Initial_Data.append(Temp)
 
 #印出排序前的資料
-print('Before Sort: \n', Initial_Data)
+print('Before Quick Sort: \n', Initial_Data)
 
 #==============================
 #執行Quick Sort
@@ -182,12 +182,12 @@ print('Before Sort: \n', Initial_Data)
 #Quick Sort(小 -> 大)
 Sorted_Data = Quick_Sort_To_Big(Initial_Data , 0 , Number-1)
 #印出排序後的資料
-print('After Sort(Small -> Big): \n', Sorted_Data)
+print('After Quick Sort(Small -> Big): \n', Sorted_Data)
 
 #Quick Sort(大 -> 小)
 Sorted_Data = Quick_Sort_To_Small(Initial_Data , 0 , Number-1)
 #印出排序後的資料
-print('After Sort(Big -> Small): \n', Sorted_Data)
+print('After Quick Sort(Big -> Small): \n', Sorted_Data)
 
 
 
