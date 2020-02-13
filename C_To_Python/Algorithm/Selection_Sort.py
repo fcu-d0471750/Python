@@ -85,12 +85,12 @@ print('Before Selection Sort: \n', Initial_Data)
 #==============================
 #執行Selection Sort
 #==============================
-#Quick Sort(小 -> 大)
+#Selection Sort(小 -> 大)
 Sorted_Data = Selection_Sort_To_Big(Initial_Data)
 #印出排序後的資料
 print('After Selection Sort(Small -> Big): \n', Sorted_Data)
 
-#Quick Sort(大 -> 小)
+#Selection Sort(大 -> 小)
 Sorted_Data = Selection_Sort_To_Small(Initial_Data)
 #印出排序後的資料
 print('After Selection Sort(Big -> Small): \n', Sorted_Data)
