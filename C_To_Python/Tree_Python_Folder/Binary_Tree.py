@@ -19,7 +19,15 @@ class Node():
         #編號
         self.ID = ID
 
+    #==============================
+    #方法: 新增Node(根節點，新增的Value , 編號)
+    #==============================
     def add_binary_tree_Node(self, New_Value, ID):
+        # 如果沒有根節點，則將新增的Value設為根節點的Value
+        if (self.Value == None):
+            self.Value = New_Value
+            self.ID = ID
+
         #如果ID偶數，則表示此Node是在左邊
         if (ID%2 == 0):
             #如果根節點沒有左子節點
@@ -28,6 +36,7 @@ class Node():
             #如果根節點有左子節點
             else:
                 self.Left.add_binary_tree_Node(New_Value,ID)
+
         #如果ID奇數，則表示此Node是在右邊
         else:
             #如果根節點沒有右子節點
@@ -38,7 +47,7 @@ class Node():
                 self.Right.add_binary_tree_Node(New_Value,ID)
 
     #==============================
-    #方法:印出Binary Tree(中序法)
+    #方法:　印出Binary Tree(中序法)
     #==============================
     def print_binary_tree_inorder_traversal(self):
 
