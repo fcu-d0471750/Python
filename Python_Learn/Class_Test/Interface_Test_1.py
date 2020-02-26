@@ -1,7 +1,7 @@
 
 #==============================================
 #由於Python，沒有像Java一樣擁有abstract或interface這種機制來規範介面
-#所以透過import ABCMeta, abstractmethod，將一個類別，抽像成一個抽像類別，當成一個介面來使用
+#所以透過import ABCMeta, abstractmethod，將一個類別，抽像成一個抽象類別，當成一個介面來使用
 #==============================================
 from abc import ABCMeta, abstractmethod
 
@@ -73,10 +73,9 @@ class USBdriver(IUSB):
 #==============================================
 #執行
 #==============================================
-
 #生成一個Computer，名稱叫Com
 Com = Computer('Com')
-#生成二個USBdriver，名稱叫USBdriver_A、USBdriver_B
+#生成兩個USBdriver，名稱叫USBdriver_A、USBdriver_B
 Udriver_A = USBdriver('USBdriver_A')
 Udriver_B = USBdriver('USBdriver_B')
 

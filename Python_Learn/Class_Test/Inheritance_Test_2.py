@@ -1,4 +1,3 @@
-'''
 #==============================================
 #定義一個父類別Animal
 #==============================================
@@ -66,66 +65,10 @@ DD.Bark()
 #DD開始跑
 DD.Run()
 
-'''
-
-'''
-#不使用繼承
-'''
 
 
 
 
-#==============================================
-#定義一個父類別Person
-#==============================================
-class Person():
-    #建構子(Constructor)
-    def __init__(self, Name, ID):
-        self.Name = Name
-        self.ID = ID
-
-    #方法(Methods)
-    #走路
-    def Walk(self):
-        print(self.Name , '走路')
-
-#定義一個子類別類別Engineer，繼承Person
-class Engineer(Person):
-    #建構子(Constructor)
-    def __init__(self , Name, ID, Skill):
-        #繼承Person的__init__
-        super().__init__(Name, ID)
-        #衍生出新的屬性
-        #技能
-        self.Skill = Skill
-
-    #衍生出新的方法
-    #修理
-    def Do_Fix(self):
-        print(self.Name , '修理東西')
-
-#定義一個子類別類別Manager，繼承Person
-class Manager(Person):
-    #建構子(Constructor)
-    def __init__(self , Name, ID):
-        #繼承Person的__init__
-        super().__init__(Name, ID)
-
-    #衍生出新的方法
-    #管理
-    def Do_Manage(self):
-        print(self.Name , '進行管理')
 
 
-#新增一個Engineer
-Engineer_1 = Engineer('Jack' ,'S123456789' ,'軟體工程')
-#使用Engineer衍生出的新方法
-Engineer_1.Do_Fix()
 
-#新增一個Manager
-Manager_1 = Manager('Mary' , 'S297415823')
-#使用Manager衍生出的新方法
-Manager_1.Do_Manage()
-
-#Engineer_1使用父類別的方法
-Engineer_1.Walk()
