@@ -1,4 +1,52 @@
 '''
+變數宣告方式
+
+
+class Person():
+    # 在建構子外宣告
+    Age = 10
+
+    # 在建構子中宣告
+    def __init__(self):
+        self.Name = 'Jack'
+
+# 在實體化後直接新增
+Jack = Person()
+Jack.Height = 177.6
+print(Jack.Height)
+'''
+
+'''
+property
+
+
+
+class Person():
+    # 建構子
+    def __init__(self , name):
+      self._name = name
+
+     # 等同Getter
+    @property
+    def name(self):
+         return self._name
+
+    # 等同Setter
+    @name.setter
+    def name(self,new_name):
+        self._name = new_name
+
+
+Jack = Person('Jack')
+# 取得名字
+print(Jack.name)
+# 設定新名字
+Jack.name = 'Bill'
+# 取得名字
+print(Jack.name)
+'''
+
+'''
 #==============================================
 #定義一個類別Dog
 #==============================================
@@ -226,3 +274,9 @@ Jack = Person(Name='Jack',Address='Taichung')
 #印出名字，而Father會顯示None
 print(Jack.Name,' ',Jack.Father)
 '''
+
+
+
+
+
+
