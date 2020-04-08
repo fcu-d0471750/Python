@@ -277,7 +277,7 @@ R = ['T', 'F', 'T', 'T', 'F', 'T', 'F', 'T', 'F', 'F']
 P = ['T', 'F', 'T', 'T', 'T', 'T', 'T', 'T', 'T', 'T']
 
 accuracy = 6/10 
-'''
+
 R = input()
 P = input()
 accuracy = 0
@@ -288,7 +288,208 @@ for i in range(0,len(R)):
     if(R[i] == P[i]): accuracy = accuracy + 1
 
 print(accuracy*10)
+'''
+'''
+有一個結構為 dict 的資料名為 rank, 記錄著一群人對電影的喜好程度，例如： Nick 對 Coco 的評價為 1, 對 Cold War 的評價為 5; John 對 Coco 的評價為 5, 對 Cold War 的評價為 1, 則可以表示為：
+rank = {'Nick': {'Coco': 1, 'Cold War': 5}, 'John': {'Coco': 5, 'Cold War': 1}}
+列出所有人的姓名在第一行，所有電影在第二行（不得重複），且必須由a到z排序。
+
+
+rank = {'Nick': {'Coco': 1, 'Cold War': 5}, 'John': {'Coco': 5, 'Cold War': 1}}
+dlist = []
+ulist = []
+nlist = []
+mlist = []
+
+for key,value in rank.items():
+    temp = [key,value]
+    dlist.append(temp)
+
+for i in range (0,len(dlist)):
+    #print(dlist[i][0],end=' ').
+    ulist.append(dlist[i][0])
+
+ulist.sort()
+
+for i in range (0,len(ulist)):
+    print(ulist[i],end=' ')
+
+print()
+
+
+for key,value in rank['Nick'].items():
+    temp = [key,value]
+    nlist.append(temp)
+
+for i in range (0,len(nlist)):
+    #print(nlist[i][0],end=' ')
+    mlist.append(nlist[i][0])
+
+mlist.sort()
+
+for i in range (0,len(mlist)):
+    print(mlist[i],end=' ')
+'''
+
+'''
+import math
+rank = {'Nick': {'Coco': 1, 'Cold War': 5}, 'John': {'Coco': 5, 'Cold War': 1}}
+n1 = input()
+n2 = input()
+rank_sum = 0
+Temp = 0
+
+
+for i in rank[n1].keys():
+    for j in rank[n2].keys():
+        if(i==j):
+            Temp = abs(rank[n1][i]-rank[n2][j])**2
+            rank_sum = rank_sum + Temp
+
+distance = round(math.sqrt(rank_sum),2)
+print (distance)
+'''
+
+'''
+for i,j in rank[n1].values(),rank[n2].values():
+    Temp = abs(i-j)**2
+    rank_sum = rank_sum + Temp
+'''
+'''
+a = [[12,1,100],
+     [34,90,22],
+     [80,80,80]]
+
+a.sort(key = lambda r: r[2])
+print(a)
+'''
+#key = lambda k : s[k]
+'''
+max = lambda x,y: x if x > y else y
+m = max(10,9)
+print(m)
+'''
+'''
+s1 = {"Nick": {"Coco": 1, "Cold War": 5}, 
+      "John": {"Coco": 5, "Cold War": 1}, 
+      "Leo": {"Coco": 3, "Cold War": 4}, 
+      "Jie": {"Coco": 5} 
+      }
+
+s2 = {"Nick": {"Coco": 1, "Cold War": 5}, 
+      "John": {"Coco": 5, "Cold War": 1}, 
+      "Leo": {"Coco": 3, "Cold War": 4}, 
+      "Jie": {"Coco": 5, "Cold War": 1} 
+      } 
+
+s3 = {"Nick": {"Coco": 1, "Cold War": 5}, 
+      "John": {"Coco": 5, "Cold War": 1}, 
+      "Leo": {"Tiger": 3, "Cold War": 4}, 
+      "Jie": {"Cold War": 3} 
+      } 
+
+s4 = {"Nick": {"Coco": 1, "Cold War": 5, "Z": 1}, 
+      "John": {"Coco": 5, "Cold War": 1, "Z": 1}, 
+      "Leo": {"Tiger": 3, "Cold War": 4, "Z": 1}, 
+      "Jie": {"Z": 1} 
+      }
+      
+s1: Cold War
+s2: None
+s3: Tiger
+s4: Coco      
+      
+'''
+
+import math
+
+def dis(rank,p,q):
+    rank_sum = 0
+    Temp = 0
+
+    for i in rank[p].keys():
+        for j in rank[q].keys():
+            if (i == j):
+                Temp = abs(rank[p][i] - rank[q][j]) ** 2
+                rank_sum = rank_sum + Temp
+
+    distance = round(math.sqrt(rank_sum), 2)
+
+    return distance
+
+def nearest(rank,p):
+    # 預設極大值，用於比較
+    min_dis = 100
+    # Key排序，確保依照名稱進行
+    name_list = sorted(rank.keys())
+
+    for people in name_list:
+        # 遇到自己，不比較
+        if people == p:
+            continue
+        d = dis(rank,p,people)
+        #
+        if d < min_dis:
+            min_dis = d
+            nearest_p = people
+
+    return nearest_p
+    #依據rank找出和p最接近的人
+    #先設一個極大值成最小距離，設100
+    #跑迴圈找出和p之間距離最小的人
+    # near = dis(rank,p,q)
+
+def my_favorite(rank,q):
+    movie_dict = rank[q]
+    movie_r_list = []
+    movie_list = []
+
+    for m in movie_dict:
+        movie_r_list.append([m,rank[q][m]])
+    movie_r_list = sorted(movie_r_list,key= lambda  x: x[-1],reverse=True)
+
+    for i in  movie_r_list:
+        movie_list.append(i[0])
+
+    return movie_list
+
+
+def recommend(rank, p):
+    # 1. 找出喜好最接近 p 的人，假設為 q
+    #   q = nearest(rank,p)
+    q = nearest(rank,p)
+    #2. 找出q喜好的影片列表like_list
+    #   like_list = my_favorite(rank,p)
+    like_list = my_favorite(rank, q)
+    #3. 從like_list找p還沒有評價的電影
+    #   find_not_watched
+    for m in like_list:
+        if not (m in  my_favorite(rank,p)):
+            not_watched = m
+            break
+        else:
+            not_watched = "None"
+    return not_watched
 
 
 
 
+
+#recommend 會推薦和他喜好距離最短的人最喜歡的電影
+
+#p = input()
+
+#movie = recommend(rank, p)
+
+
+s3 = {"Nick": {"Coco": 1, "Cold War": 5},
+      "John": {"Coco": 5, "Cold War": 1},
+      "Leo": {"Tiger": 3, "Cold War": 4},
+      "Jie": {"Cold War": 3}
+      }
+
+
+p = "Jie"
+movie = recommend(s3, p)
+
+print(p , "-----" , movie)
