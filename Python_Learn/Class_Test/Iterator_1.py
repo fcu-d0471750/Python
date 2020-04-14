@@ -23,16 +23,23 @@ for i in range(1,11):
 使用迭代器，不斷拿下一個值。
 
 
-iter_obj=iter([3,4,5])
-print(next(iter_obj))
+
+
+iter_obj = iter([3,4,5])
+
+for  i  in  iter_obj:
+  print(i)
+'''
+'''  
 print(next(iter_obj))
 print(next(iter_obj))
 print(next(iter_obj))
 '''
 
+
 '''
 使用產生器，不斷拿下一個值。
-'''
+
 
 
 def even(x):
@@ -46,14 +53,32 @@ list_n = [3,4,5,6,7]
 
 for i in even(list_n):
     print(i)
+'''
 
 
 
 
+class Teacher:
+    # 建構子
+    def __init__(self,  name , age):
+        self.name = name
+        self.age = age
 
 
+list_T = []
 
+teacher_1 = Teacher("Niko" , 33)
+teacher_2 = Teacher("Rom" , 60)
+teacher_3 = Teacher("Jill" , 48)
 
+list_T.append(teacher_1)
+list_T.append(teacher_2)
+list_T.append(teacher_3)
+
+iter_obj = iter(list_T)
+
+for  i  in  iter_obj:
+  print("Name:" , i.name ,"Age:", i.age)
 
 
 

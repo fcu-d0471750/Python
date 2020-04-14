@@ -189,18 +189,14 @@ class radious_des:
         else:
          # 半徑
          if(self.name == "radious"):
-             print("Your radious is : ", end='')
-
              return instance.__dict__["radious"]
          # 周長
          elif(self.name == "circumference"):
-             print("Your circumference is : ", end='')
              instance.__dict__["circumference"] = round(instance.__dict__["radious"] * 2.0 * 3.14 , 2)
 
              return instance.__dict__["circumference"]
          # 面積
          elif(self.name == "area"):
-             print("Your area is : ", end='')
              instance.__dict__["area"] = instance.__dict__["radious"] * instance.__dict__["radious"] * 3.14
 
              return instance.__dict__["area"]
@@ -212,11 +208,11 @@ class radious_des:
     def __set__(self, instance, value):
         # 如果value的型態不是float
         if (type(value) != float):
-            raise ValueError('Value can be float.')
+            raise TypeError('Value can be float.')
 
         #  value 小於 0.0 或 大於100.0
         if (value <= 0) or (value > 100):
-            print("Value is from 1.0 to 100.0")
+            raise ValueError("Value is from 1.0 to 100.0")
         # 找出instance中self.name的欄位，將值改為value
         else:
             instance.__dict__[self.name] = value
