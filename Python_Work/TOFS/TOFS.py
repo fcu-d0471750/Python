@@ -7,7 +7,27 @@ import numpy  as np
 csv檔用記事本開啟 -> 另存新檔 -> 改utf-8格式 -> 存檔
 '''
 
+'''
+宣告變數
+'''
 
+# 資料人數
+data_list = []
+
+# 資料過濾總合
+data_filter = []
+
+# 要取得人數的資料欄位
+data_field = ["因病至學期底總休學人數", "因經濟困難至學期底總休學人數", "因學業成績至學期底總休學人數", "因志趣不合至學期底總休學人數", "因工作需求至學期底總休學人數", "因懷孕至學期底總休學人數",
+     "因育嬰至學期底總休學人數", "因兵役至學期底總休學人數", "因出國至學期底總休學人數", "因論文至學期底總休學人數", "因適應不良至學期底總休學人數", "因家人傷病至學期底總休學人數", "因考試訓練至學期底總休學人數",
+     "其他至學期底總休學人數"]
+
+# x標籤
+data_xlabel = ["生病","經濟困難" , "學業成績" , "興趣不合" , "工作需求" , "懷孕" , "育嬰" , "兵役" , "出國" , "論文" , "適應不良" , "家人傷病" , "考試訓練" , "其它"]
+
+'''
+宣告方法
+'''
 # 設定字型，使得可以讀取中文(window)
 def setupFont_window():
     import matplotlib as mpl
@@ -24,58 +44,78 @@ def init_data():
 
     return df
 
-def cc(df , s , list_n):
-
-   x = ["學期內新辦理休學人數小計" , "因病學期內新辦理休學人數" , "因經濟困難學期內新辦理休學人數"]
+# 計算人數
+def cal(df , s , list_n , x):
    for i in x:
        temp = df.loc[s, i].sum()
-
        list_n.append(temp)
    return list_n
+
+# 資料過濾條件
+def data_filiter(df):
+    school_year = df["學年度"] == "105"
+    schoole_semester = df["學期"] == "1"
+    school_name = df["學校名稱"].str.contains("逢甲")
+    school_class = df["學制班別"] == "學士班(日間)"
+    school_sex = df["性別"] == "男"
+
+    data_f = school_year & schoole_semester & school_name & school_sex & school_class
+
+    return data_f
+
+# 柱狀圖(直向)
+def show_bar_s():
+    # (X軸編號,資料(人數),本體顏色,邊框顏色)
+    plt.bar(data_xlabel, data_list, facecolor='#9999ff', edgecolor='white', width=0.8)
+    # 標籤垂直
+    plt.xticks(rotation='vertical')
+    # 柱狀圖加上印出數值
+    for x, y in zip(data_xlabel, data_list):
+        plt.text(x, y, y,  va='bottom' , ha="center")
+    plt.show()
+
+# 柱狀圖(橫向)
+def show_bar_h():
+    # (X軸編號,資料(人數))
+    plt.barh(data_xlabel, data_list)
+    # 柱狀圖加上數值
+    for x, y in zip(data_xlabel, data_list):
+        plt.text(y + 2.0, x, y, va='center', fontsize=9)
+    plt.show()
+
+# 圓餅圖
+def show_pie():
+    data_list_pie = []
+    data_xlabel_pie = []
+    # 移除數值為0的資料
+    for i in range(0,len(data_list)):
+        if data_list[i] != 0:
+            data_list_pie.append(data_list[i])
+            data_xlabel_pie.append(data_xlabel[i])
+    # (原始)圓餅圖
+    #plt.pie(data_list, labels=data_xlabel , autopct="%1.1f%%" , shadow=True)
+    # (移除數值0)圓餅圖
+    plt.pie(data_list_pie, labels=data_xlabel_pie , autopct="%1.1f%%" , shadow=True)
+    plt.show()
+
 
 # 執行
 setupFont_window()
 df = init_data()
 
-# 長條圖呈現每一區
-#g = df["學校名稱"].str.contains("高雄")
-
-#df.groupby(df.loc[g,"學校名稱"]).count()["學校統計處代碼"].plot.bar(df.loc[g,"在學學生數"],figsize=(8,8))
-#plt.show()
-
-# 資料過濾條件
-school_year = df["學年度"]  == "105"
-schoole_semester = df["學期"]  == "1"
-school_name = df["學校名稱"].str.contains("逢甲")
-school_class = df["學制班別"]  == "學士班(日間)"
-school_sex = df["性別"] == "男"
-
 # 資料過濾
-s = school_year & schoole_semester & school_name & school_sex & school_class
+data_filter = data_filiter(df)
 
-# 
-a = df.loc[s, "在學學生數"].sum()
+# 計算人數
+data_list = cal(df , data_filter , data_list , data_field)
 
-list_n = []
-x = ["學期內新辦理休學人數小計" , "因病學期內新辦理休學人數" , "因經濟困難學期內新辦理休學人數"]
+#圓餅圖
+show_pie()
 
+# 柱狀圖
+# show_bar_h()
 
-
-list_n = cc(df , s , list_n)
-number =  int(float(str(a.strip(",")).replace(",","")))
-xx = np.array(list_n)
-plt.pie(list_n, labels=x)
-plt.show()
-
-
-#print(df.loc[school_year & schoole_semester & school_name & school_sex & school_class , "在學學生數"])
-
-#plt.show()
-#df["tot"] = df[df]
-
-
-
-
+#number =  int(float(str(a.strip(",")).replace(",","")))
 
 
 
