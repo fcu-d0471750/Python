@@ -51,6 +51,8 @@ def cal(df , s , list_n , x):
        list_n.append(temp)
    return list_n
 
+
+
 # 資料過濾條件
 def data_filiter(df):
     school_year = df["學年度"] == "105"
@@ -64,7 +66,7 @@ def data_filiter(df):
     return data_f
 
 # 柱狀圖(直向)
-def show_bar_s():
+def show_bar_v():
     # (X軸編號,資料(人數),本體顏色,邊框顏色)
     plt.bar(data_xlabel, data_list, facecolor='#9999ff', edgecolor='white', width=0.8)
     # 標籤垂直
@@ -77,7 +79,7 @@ def show_bar_s():
 # 柱狀圖(橫向)
 def show_bar_h():
     # (X軸編號,資料(人數))
-    plt.barh(data_xlabel, data_list)
+    plt.barh(data_xlabel, data_list, facecolor='#9999ff', edgecolor='white')
     # 柱狀圖加上數值
     for x, y in zip(data_xlabel, data_list):
         plt.text(y + 2.0, x, y, va='center', fontsize=9)
@@ -98,10 +100,23 @@ def show_pie():
     plt.pie(data_list_pie, labels=data_xlabel_pie , autopct="%1.1f%%" , shadow=True)
     plt.show()
 
+# 圓餅圖(其它)
+def show_pie_other():
+    dg = df.loc[data_filter]
+    dh = dg[["學校統計處代碼", "因病至學期底總休學人數", "因經濟困難至學期底總休學人數", "其他至學期底總休學人數"]]
+    dh = dh.set_index("學校統計處代碼")
+    dh = dh.sort_values(by='1007', axis=1)
+
+    xlabel = ["因病至學期底總休學人數", "因經濟困難至學期底總休學人數", "其他至學期底總休學人數"]
+
+    plt.pie(dh, labels=xlabel, autopct="%1.1f%%", shadow=True)
+    plt.show()
+
 
 # 執行
 setupFont_window()
 df = init_data()
+
 
 # 資料過濾
 data_filter = data_filiter(df)
@@ -110,32 +125,25 @@ data_filter = data_filiter(df)
 data_list = cal(df , data_filter , data_list , data_field)
 
 #圓餅圖
-show_pie()
+#show_pie()
 
-# 柱狀圖
-# show_bar_h()
+#圓餅圖(其它)
+#show_pie_other()
+
+# 柱狀圖(水平)
+show_bar_h()
+
+# 柱狀圖(垂直)
+#show_bar_v()
+
+
+
+
+
+
+
 
 #number =  int(float(str(a.strip(",")).replace(",","")))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # 排序
