@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-
+import matplotlib.animation as animation
 '''
 宣告變數
 ,usecols=['Country/Region', 'Date', 'Value']
@@ -13,26 +13,29 @@ list_tot_confirmed = []
 # 每日確診人數list
 list_confirmed = []
 
+list_date = []
+
+fig, ax = plt.subplots()
 
 # 讀資料
 def ini_data():
     #url = "https://data.humdata.org/hxlproxy/data/download/time_series_covid19_confirmed_global_narrow.csv?dest=data_edit&filter01=merge&merge-url01=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vTglKQRXpkKSErDiWG6ycqEth32MY0reMuVGhaslImLjfuLU0EUgyyu2e-3vKDArjqGX7dXEBV8FJ4f%2Fpub%3Fgid%3D1326629740%26single%3Dtrue%26output%3Dcsv&merge-keys01=%23country%2Bname&merge-tags01=%23country%2Bcode%2C%23region%2Bmain%2Bcode%2C%23region%2Bsub%2Bcode%2C%23region%2Bintermediate%2Bcode&filter02=merge&merge-url02=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vTglKQRXpkKSErDiWG6ycqEth32MY0reMuVGhaslImLjfuLU0EUgyyu2e-3vKDArjqGX7dXEBV8FJ4f%2Fpub%3Fgid%3D398158223%26single%3Dtrue%26output%3Dcsv&merge-keys02=%23adm1%2Bname&merge-tags02=%23country%2Bcode%2C%23region%2Bmain%2Bcode%2C%23region%2Bsub%2Bcode%2C%23region%2Bintermediate%2Bcode&merge-replace02=on&merge-overwrite02=on&filter03=explode&explode-header-att03=date&explode-value-att03=value&filter04=rename&rename-oldtag04=%23affected%2Bdate&rename-newtag04=%23date&rename-header04=Date&filter05=rename&rename-oldtag05=%23affected%2Bvalue&rename-newtag05=%23affected%2Binfected%2Bvalue%2Bnum&rename-header05=Value&filter06=clean&clean-date-tags06=%23date&filter07=sort&sort-tags07=%23date&sort-reverse07=on&filter08=sort&sort-tags08=%23country%2Bname%2C%23adm1%2Bname&tagger-match-all=on&tagger-default-tag=%23affected%2Blabel&tagger-01-header=province%2Fstate&tagger-01-tag=%23adm1%2Bname&tagger-02-header=country%2Fregion&tagger-02-tag=%23country%2Bname&tagger-03-header=lat&tagger-03-tag=%23geo%2Blat&tagger-04-header=long&tagger-04-tag=%23geo%2Blon&header-row=1&url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_covid19_confirmed_global.csv"
     #df = pd.read_csv(url, header=0)
     file_path = "Covid_confirmed.csv"
-    df = pd.read_csv(file_path, header=[0])
+    df = pd.read_csv(file_path,usecols=['Country/Region', 'Date', 'Value'])
     df = df.fillna(value=0)
     # 刪掉第2列header
     df = df.drop(axis=0, index=0)
     # 將資料型別轉換為日期型別
     df["Date"] = pd.to_datetime(df["Date"])
-
+    #df = df.set_index("Date")
     return df
 
 
 # 資料過濾條件
 def data_filiter(df):
-    Region = df["Country/Region"] == "Afghanistan"
-    Start_Date = df["Date"] >= "2020/4/22"
+    Region = df["Country/Region"].isin(["Afghanistan","Taiwan*"])
+    Start_Date = df["Date"] >= "2020/3/22"
     End_Date = df["Date"] <= "2020/4/26"
     Date = Start_Date & End_Date
     data_f = Region & Date
@@ -96,30 +99,28 @@ def show_bar_h():
     # 柱狀圖加上印出數值
     plt.show()
 
+def draw_barchart(idx):
+    width = 0.4
+    ax.clear()
+    ax.barh("Taiwan", dfa.loc[dfa["Country/Region"] == "Taiwan*", "Value"][idx], width, color='red', label='N')
+    ax.barh("Afghanistan", dfa.loc[dfa["Country/Region"] == "Afghanistan", "Value"][idx], width, color='green', label='M')
+
+
 # 執行
 df = ini_data()
 
 # 資料過濾
 data_filter = data_filiter(df)
 
-# 計算確診總人數
-list_tot_confirmed = cal_tot_confirmed(df , data_filter)
+dfa = df[data_filter].set_index("Date")
+#print(dfa.loc[dfa["Country/Region"]=="Afghanistan" , "Value"])
+#print(len(dfa.loc[dfa["Country/Region"]=="Taiwan*" , "Value"]))
 
-# 計算每日確診人數
-list_confirmed = cal_confirmed(df , data_filter)
-#由於起始點不會有差值，所以補0，以讓plt可以運作
-list_confirmed.append(0)
 
-# 日期轉換
-list_date = datecal()
+plt.xticks([], [])
+animator = animation.FuncAnimation(fig, draw_barchart,frames=range(len(dfa.loc[dfa["Country/Region"]=="Taiwan*" , "Value"])-1,-1,-1), repeat=False)
+plt.show()
 
-# 反轉list，維持長條圖順序
-list_confirmed.reverse()
-list_date.reverse()
-list_tot_confirmed.reverse()
-
-print(list_tot_confirmed,"\n",list_confirmed,"\n",list_date)
-show_bar_v()
 
 
 
