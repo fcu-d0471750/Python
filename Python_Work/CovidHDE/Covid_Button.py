@@ -1,21 +1,21 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+
 import matplotlib.animation as animation
+
 '''
 宣告變數
 ,usecols=['Country/Region', 'Date', 'Value']
 '''
 
+fig, ax = plt.subplots(figsize=(15, 4))
+
 # 確診總人數list
 list_tot_confirmed = []
 
-# 每日確診人數list
-list_confirmed = []
-
 list_date = []
 
-fig, ax = plt.subplots()
 
 # 讀資料
 def ini_data():
@@ -28,14 +28,14 @@ def ini_data():
     df = df.drop(axis=0, index=0)
     # 將資料型別轉換為日期型別
     df["Date"] = pd.to_datetime(df["Date"])
-    #df = df.set_index("Date")
+
     return df
 
 
 # 資料過濾條件
 def data_filiter(df):
-    Region = df["Country/Region"].isin(["Afghanistan","Taiwan*"])
-    Start_Date = df["Date"] >= "2020/3/22"
+    Region = df["Country/Region"].isin(["Afghanistan" , "Taiwan*"])
+    Start_Date = df["Date"] >= "2020/1/22"
     End_Date = df["Date"] <= "2020/4/26"
     Date = Start_Date & End_Date
     data_f = Region & Date
@@ -50,24 +50,6 @@ def cal_tot_confirmed(df , filter):
    temp =  list(map(int, temp))
    return temp
 
-# 計算每日確診人數
-def cal_confirmed(df , filter):
-   #
-   temp_d = []
-   # 將Serios 存成 list
-   temp = df.loc[filter, "Value"].values.tolist()
-   temp = list(map(int, temp))
-   for i in range( len(temp)):
-       if i == 0:
-           num = temp[i]
-           continue
-       num = num - temp[i]
-       temp_d.append(num)
-       num = temp[i]
-
-   #temp_d = list(map(str, temp_d))
-   return temp_d
-
 # 日期轉換
 def datecal():
     # Datetime 轉成 str
@@ -79,12 +61,11 @@ def datecal():
 # 柱狀圖(直向)
 def show_bar_v():
     # (X軸編號,資料(人數),本體顏色,邊框顏色)
-    #plt.bar(list_date, list_tot_confirmed, facecolor='#9999ff', edgecolor='white', width=0.4)
-    plt.bar(list_date, list_confirmed, facecolor='#9999ff', edgecolor='white', width=0.4)
+    plt.bar(list_date, list_tot_confirmed, facecolor='#9999ff', edgecolor='white', width=0.4)
     # 標籤垂直
     plt.xticks(rotation='vertical')
     # 柱狀圖加上印出數值
-    for x, y in zip(list_date, list_confirmed):
+    for x, y in zip(list_date, list_tot_confirmed):
         plt.text(x, y, y, va='bottom', ha="center")
     # 柱狀圖加上印出數值
     plt.show()
@@ -92,19 +73,27 @@ def show_bar_v():
 # 柱狀圖(橫向)
 def show_bar_h():
     # (y軸編號,資料(人數),本體顏色,邊框顏色)
-    plt.barh(list_date, list_confirmed, facecolor='#EED19C', edgecolor='white')
+    plt.barh(list_date, list_tot_confirmed, facecolor='#EED19C', edgecolor='white')
     # 柱狀圖加上數值
-    for x, y in zip(list_date, list_confirmed):
+    for x, y in zip(list_date, list_tot_confirmed):
         plt.text(y + 2.0, x, y, va='center', fontsize=9)
     # 柱狀圖加上印出數值
     plt.show()
 
 def draw_barchart(idx):
-    width = 0.4
-    ax.clear()
-    ax.barh("Taiwan", dfa.loc[dfa["Country/Region"] == "Taiwan*", "Value"][idx], width, color='red', label='N')
-    ax.barh("Afghanistan", dfa.loc[dfa["Country/Region"] == "Afghanistan", "Value"][idx], width, color='green', label='M')
 
+    temp = int(idx)
+    y_locs = np.arange(1)
+
+    ax.clear()
+
+    ax.barh(y_locs, list_tot_confirmed[temp])
+    #for i, (value, name) in enumerate(zip(list_tot_confirmed, list_date)):
+    #    ax.text(list_tot_confirmed[temp], i, list_tot_confirmed[temp], ha='right')  # 38194.2: value
+
+    ax.barh(y_locs + 1, list_tot_confirmed[int(temp+len(list_date)/2)])
+
+    ax.text(1, 0.4, list_date[temp], transform=ax.transAxes, size=10, ha='right')
 
 # 執行
 df = ini_data()
@@ -112,13 +101,18 @@ df = ini_data()
 # 資料過濾
 data_filter = data_filiter(df)
 
-dfa = df[data_filter].set_index("Date")
-#print(dfa.loc[dfa["Country/Region"]=="Afghanistan" , "Value"])
-#print(len(dfa.loc[dfa["Country/Region"]=="Taiwan*" , "Value"]))
+# 計算確診總人數
+list_tot_confirmed = cal_tot_confirmed(df , data_filter)
+
+# 日期轉換
+list_date = datecal()
 
 
-plt.xticks([], [])
-animator = animation.FuncAnimation(fig, draw_barchart,frames=range(len(dfa.loc[dfa["Country/Region"]=="Taiwan*" , "Value"])-1,-1,-1), repeat=False)
+# 反轉list，維持長條圖順序
+list_date.reverse()
+list_tot_confirmed.reverse()
+
+animator = animation.FuncAnimation(fig, draw_barchart, frames=range(0, int(len(list_tot_confirmed)/2) , 1),repeat=False)
 plt.show()
 
 
