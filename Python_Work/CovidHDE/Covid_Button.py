@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-
 import matplotlib.animation as animation
 
 '''
@@ -16,6 +15,17 @@ list_tot_confirmed = []
 
 list_date = []
 
+'''
+colors = dict(zip(
+    ["香港", "中國大陸", "日本", "南韓", "馬來西亞", "新加坡", "印尼","菲律賓","泰國","越南","加拿大","美國","法國","德國","義大利","荷蘭","英國","澳大利亞","南非",'澳門'],
+    ["#2E86AB", "#424B54", "#00A6A6", "#F24236", "#9E643C", "#f7bb5f", "#EDE6F2","#E9D985", "#8C4843", "#90d595", "#e48381", "#090446", "#f7bb5f", "#eafb50","#adb0ff",
+     "#ffb3ff", "#90d595", "#e48381", "#aafbff",'#746D75']
+))
+'''
+colors = dict(zip(
+    ["Taiwan*", "Japan", "Korea, South", "南韓", "馬來西亞", "新加坡", "印尼","菲律賓","泰國","越南","加拿大","美國","法國","德國","義大利","荷蘭","英國","澳大利亞","南非",'澳門'],
+    ["#2E86AB", "#424B54", "#00A6A6"]
+))
 
 # 讀資料
 def ini_data():
@@ -34,86 +44,54 @@ def ini_data():
 
 # 資料過濾條件
 def data_filiter(df):
-    Region = df["Country/Region"].isin(["Afghanistan" , "Taiwan*"])
+    Region = df["Country/Region"].isin(["Taiwan*","Japan","Korea, South"])
     Start_Date = df["Date"] >= "2020/1/22"
     End_Date = df["Date"] <= "2020/4/26"
     Date = Start_Date & End_Date
-    data_f = Region & Date
+    data_f = Region
 
     return data_f
 
-# 計算總人數
-def cal_tot_confirmed(df , filter):
-   # 將Serios 存成 list
-   temp = df.loc[filter, "Value"].values.tolist()
-   # str 轉成 int
-   temp =  list(map(int, temp))
-   return temp
-
-# 日期轉換
-def datecal():
-    # Datetime 轉成 str
-    temp = df.loc[data_filter, "Date"].apply(lambda x: x.strftime("%Y-%m-%d"))
-    # 存成 list
-    temp = temp.values.tolist()
-    return temp
-
-# 柱狀圖(直向)
-def show_bar_v():
-    # (X軸編號,資料(人數),本體顏色,邊框顏色)
-    plt.bar(list_date, list_tot_confirmed, facecolor='#9999ff', edgecolor='white', width=0.4)
-    # 標籤垂直
-    plt.xticks(rotation='vertical')
-    # 柱狀圖加上印出數值
-    for x, y in zip(list_date, list_tot_confirmed):
-        plt.text(x, y, y, va='bottom', ha="center")
-    # 柱狀圖加上印出數值
-    plt.show()
-
-# 柱狀圖(橫向)
-def show_bar_h():
-    # (y軸編號,資料(人數),本體顏色,邊框顏色)
-    plt.barh(list_date, list_tot_confirmed, facecolor='#EED19C', edgecolor='white')
-    # 柱狀圖加上數值
-    for x, y in zip(list_date, list_tot_confirmed):
-        plt.text(y + 2.0, x, y, va='center', fontsize=9)
-    # 柱狀圖加上印出數值
-    plt.show()
-
-def draw_barchart(idx):
-
-    temp = int(idx)
-    y_locs = np.arange(1)
+def race_barchart(input_year):
+    dff = done[done['Date'].eq(input_year)].sort_values(by='Value', ascending=True)
+    dff['Country/Region'] = dff['Country/Region'].astype(str)
+    dff['Value'] = dff['Value'].astype(float)
 
     ax.clear()
+    ax.barh(dff['Country/Region'], dff['Value'], height=0.8,color=[colors[x] for x in dff['Country/Region']])
 
-    ax.barh(y_locs, list_tot_confirmed[temp])
-    #for i, (value, name) in enumerate(zip(list_tot_confirmed, list_date)):
-    #    ax.text(list_tot_confirmed[temp], i, list_tot_confirmed[temp], ha='right')  # 38194.2: value
 
-    ax.barh(y_locs + 1, list_tot_confirmed[int(temp+len(list_date)/2)])
+    for i, (value, name) in enumerate(zip(dff['Value'], dff['Country/Region'])):
+        ax.text(0, i, name + ' ', size=16, weight=600, ha='right', va='center')  # 將每個國家名稱放到對應的長條旁邊
+        ax.text(value, i,f'{value:,.0f}',  size=16, ha='left',  va='center') # 將確診人數放到對應的長條旁邊
 
-    ax.text(1, 0.4, list_date[temp], transform=ax.transAxes, size=10, ha='right')
+
+    ax.text(0.9, 0.2, input_year, transform=ax.transAxes, color='#777777', size=12, ha='right', weight=1000)  # 增加日期
+    ax.text(0, 1.06, 'confirmed', transform=ax.transAxes, size=14, color='#777777') # 小標題
+
+    ax.tick_params(axis='x', colors='#777777', labelsize=12)  # 調整橫軸顏色、標籤大小
+    ax.xaxis.set_ticks_position('top')  # 將橫軸放到頂端
+    ax.set_yticks([])
+    ax.margins(0, 0.01)
+
+    ax.grid(which='major', axis='x', linestyle='-')  # 增加格線
+
 
 # 執行
 df = ini_data()
 
 # 資料過濾
 data_filter = data_filiter(df)
-
-# 計算確診總人數
-list_tot_confirmed = cal_tot_confirmed(df , data_filter)
-
-# 日期轉換
-list_date = datecal()
+done = df[data_filter]
 
 
-# 反轉list，維持長條圖順序
-list_date.reverse()
-list_tot_confirmed.reverse()
+month = list(set(df.Date.values))
+month.sort()
 
-animator = animation.FuncAnimation(fig, draw_barchart, frames=range(0, int(len(list_tot_confirmed)/2) , 1),repeat=False)
+animator = animation.FuncAnimation(fig, race_barchart, frames=month,repeat=False)
+
 plt.show()
+
 
 
 
