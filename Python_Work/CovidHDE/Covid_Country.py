@@ -1,3 +1,7 @@
+'''
+Covid-19 全球 確診人數、死亡人數、康復人數(以日更新)
+只可使用國家搜尋資料
+'''
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -176,10 +180,3 @@ animator = animation.FuncAnimation(fig, race_barchart, frames=month,repeat=False
 
 # 執行動畫
 plt.show()
-
-
-
-
-
-
-
