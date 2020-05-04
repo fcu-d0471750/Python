@@ -95,7 +95,7 @@ def race_barchart(input_day):
     ax.clear()
 
     # 長條圖
-    ax.barh(dff['Country/Region'] , dff['Value'], height=0.2,color=[colors[x] for x in dff['Country/Region']],edgecolor='#666666',hatch='/' , label="confiemed")
+    ax.barh(np.arange(len(dff['Country/Region'])) , dff['Value'], height=0.2,color=[colors[x] for x in dff['Country/Region']],edgecolor='#666666',hatch='/' , label="confiemed")
     ax.barh(np.arange(len(dff['Country/Region']))- 0.3 , deaths['Value'], height=0.2, color=[colors[x] for x in dff['Country/Region']],edgecolor='#666666', hatch='-' , label="deaths")
     ax.barh(np.arange(len(dff['Country/Region'])) - 0.6, recover['Value'], height=0.2,color=[colors[x] for x in dff['Country/Region']], edgecolor='#666666', hatch='+' , label="recovered")
 
