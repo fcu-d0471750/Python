@@ -16,17 +16,17 @@ from IPython.display import HTML
 fig, ax = plt.subplots(figsize=(12, 6))
 
 # Region
-regions = ["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"]
+regions = ["Taiwan*", "Japan", "Korea, South", "China", "Germany"]
 
 # 折線圖顏色
 colors = dict(zip(
-    ["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"],
+    ["Taiwan*", "Japan", "Korea, South", "China", "Germany"],
     ["#FFE4E1", "#D8BFD8", "#BC8F8F", "#FFEFD5", "#D2B48C"]
 ))
 
 # marker
 markers =  dict(zip(
-    ["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"],
+    ["Taiwan*", "Japan", "Korea, South", "China", "Germany"],
     ["^", "o", "*", "s", "|"]
 ))
 
@@ -71,8 +71,12 @@ def race_data_sort(data, input_day):
     # 將Value的值 轉成 float
     dff['Value'] = dff['Value'].astype(float)
 
+    # 將相同Region合併
+    dff = dff.groupby(['Country/Region', 'Date'])
+    # 計算人數總合
+    dff = dff.sum().reset_index()
     # 由於第一次排序無法將資料完整排序，再進行排序
-    dff = dff.sort_values(by=['Country/Region','Value'], ascending=[True,True])
+    dff = dff.sort_values(by=['Country/Region', 'Value'], ascending=[True, True])
 
     return dff
 

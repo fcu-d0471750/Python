@@ -17,16 +17,16 @@ fig, ax = plt.subplots(figsize=(15, 6))
 
 # 長條圖顏色
 colors = dict(zip(
-    ["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"],
+    ["Taiwan*", "Japan", "Korea, South", "Italy", "China"],
     ["#FFE4E1", "#D8BFD8", "#BC8F8F", "#FFEFD5", "#D2B48C"]
 ))
 
 # Region
-regions = ["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"]
+regions = ["Taiwan*", "Japan", "Korea, South", "Italy", "China"]
 
 # marker
 markers =  dict(zip(
-    ["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"],
+    ["Taiwan*", "Japan", "Korea, South", "Italy", "China"],
     ["^", "o", "*", "s", "|"]
 ))
 
@@ -57,7 +57,7 @@ def ini_data(data_type):
 
 # 資料過濾條件
 def data_filiter(df):
-    Region = df["Country/Region"].isin(["Taiwan*", "Japan", "Korea, South", "Italy", "Germany"])
+    Region = df["Country/Region"].isin(regions)
     data_f = Region
 
     return data_f
@@ -77,12 +77,22 @@ def race_data_sort(data, input_day , mod):
     # 將Value的值 轉成 float
     dff['Value'] = dff['Value'].astype(float)
 
+
     if mod == 'barh':
+        # 將相同Region合併
+        dff = dff.groupby('Country/Region')
+        # 計算人數總合
+        dff = dff.sum().reset_index()
         # 由於第一次排序無法將資料完整排序，再進行排序
         dff = dff.sort_values(by="Value", ascending=True)
     elif mod == 'plot':
+        # 將相同Region合併
+        dff = dff.groupby(['Country/Region','Date'])
+        # 計算人數總合
+        dff = dff.sum().reset_index()
         # 由於第一次排序無法將資料完整排序，再進行排序
         dff = dff.sort_values(by=['Country/Region', 'Value'], ascending=[True, True])
+
 
     return dff
 
@@ -249,7 +259,7 @@ month = list(set(dc.Date.values))
 month.sort()
 
 # 動畫
-animator = animation.FuncAnimation(fig, race_plotchart, frames=month, repeat=False)
+animator = animation.FuncAnimation(fig, race_barchart, frames=month, repeat=False)
 
 # 執行動畫
 plt.show()
