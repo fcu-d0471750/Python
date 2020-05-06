@@ -1,6 +1,8 @@
 '''
 Covid-19 全球 確診人數、死亡人數、康復人數(以日更新)
 只可使用國家搜尋資料
+
+https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases
 '''
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -93,11 +95,10 @@ def race_data_sort(data, input_day , mod):
         # 由於第一次排序無法將資料完整排序，再進行排序
         dff = dff.sort_values(by=['Country/Region', 'Value'], ascending=[True, True])
 
-
     return dff
 
 
-# 長條圖新增人數、人數比例
+# 新增人數、人數比例
 def race_barh_text(data, dis, y_dis):
     for i, (value, name) in enumerate(zip(data['Value'], data['Country/Region'])):
         # 將人數放到對應的長條旁邊
@@ -109,7 +110,7 @@ def race_barh_text(data, dis, y_dis):
         else:
             percent = value / float(data['Value'].sum())
             percent = percent * 100.0
-        # 將人數比例放到對應的長條旁邊
+        # 將人數比例放到對應的條旁邊
         ax.text(value + dis, i - (y_dis + 0.1), f'{percent:.2f}%', size=6, ha='left', va='center')
 
 
