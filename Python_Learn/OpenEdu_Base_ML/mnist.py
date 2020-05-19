@@ -48,12 +48,15 @@ def plot_images_labels_prediction(images , labels , prediction , idx , num):
     plt.show()
 
 
-
+def show_figure(index):
+    plot_images_labels_prediction(x_test_image , y_test_label , prediction , idx=index , num=1)
 
 
 #使用reshape的方式，就可以把原先的資料外觀，改成我們想要的資料外觀
 x_train = x_train_image.reshape(60000 , 784).astype("float32")
 x_test = x_test_image.reshape(10000 , 784).astype("float32")
+
+
 
 # 正規化
 x_train_normalize = x_train / 255

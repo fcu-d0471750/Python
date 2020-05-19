@@ -12,9 +12,9 @@ from keras.layers import Conv1D, MaxPooling1D, Embedding
 import re
 
 # 外部雲端下載資料集
-! wget http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
+#! wget http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
 # 解壓縮aclImdb
-! tar zxf aclImdb_v1.tar.gz
+#! tar zxf aclImdb_v1.tar.gz
 
 # 字典:正面評價、負面評價
 SentimentDict = {1:"正面評價" , 0:"負面評價"}
