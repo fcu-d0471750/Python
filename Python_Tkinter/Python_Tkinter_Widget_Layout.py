@@ -18,6 +18,7 @@ from  tkinter import *
 # LEFT : 由左至右排列
 # RIGHT : 由右至左排列
 
+# pack基本用法
 def pack_to_side():
     # 建立視窗，root可取其它名稱
     root = Tk()
@@ -400,7 +401,7 @@ def place_to_imagesize_rel():
     # box圖片
     image_box = PhotoImage(file="../imgfolder/box.jpg")
     lab_box = Label(root, image=image_box)
-    # x=距離root的水平距離、y=距離root的垂直距離、width=圖片相對root最大顯示的寬、height=圖片相對root最大顯示的高
+    # relx=圖片相對視窗的水平距離、rely=圖片相對視窗的垂直距離、relwidth=圖片相對視窗的最大顯示的寬、relheight=圖片相對視窗的最大顯示的高
     lab_box.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
 
     # 執行，放在最後一行
