@@ -1,24 +1,20 @@
-import docx
-#加入可調整的 word 單位
-from docx.shared import Cm
-#處理文件的直向/橫向
-from docx.enum.section import WD_ORIENTATION
-#加入可調整的 word 單位
-from docx.enum.text import WD_TAB_ALIGNMENT
+# 導入doc管理
+from Docx_Section import docx_Manage as DM
 
-from Store_DB.DB_Manage import use_store_db
-
-import random
-
-'''
-宣告變數
-'''
+#=================================================================
+#宣告變數
+#=================================================================
 # 要求區域
 require_area = ['台中','中港','彰化','彰南','彰濱','雲林']
 
 # 要求門市
-require_store  = [['鑫彰安','彰化'],['新龍邸','彰督','新大埔']]
+require_store  = [['中醫五權','新民高中'],['新德化','昌鴻','華太']]
 
+# 執行
+DM.do_doc(require_area[1],require_store)
+
+
+'''
 # 輸出doc的數量
 doc_count = len(require_store)
 
@@ -26,9 +22,9 @@ doc_count = len(require_store)
 allow_store = []
 
 
-'''
-執行
-'''
+#=================================================================
+#執行
+#=================================================================
 
 # 共執行幾次
 for count in range(0,doc_count):
@@ -51,7 +47,6 @@ for count in range(0,doc_count):
   section.right_margin = Cm(1.27)
   section.top_margin = Cm(1.27)
   section.bottom_margin = Cm(1.27)
-
 
 
   # 找出符合 require_store 的門市資料
@@ -80,4 +75,4 @@ for count in range(0,doc_count):
   # 輸出 docx
   doc.save(doc_name)
 
-
+'''
