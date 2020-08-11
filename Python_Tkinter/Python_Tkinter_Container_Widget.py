@@ -294,6 +294,8 @@ def toplevel_to_talk():
 ##==============================================================================================
 
 # Frame Project 1
+# 當使用 Radio Button 或 Check Box，會在 Python Shell 顯示
+# 輸入名字，再按下執行，會在 Python Shell 顯示名字
 def frame_project_one():
     # click_Radibutton
     def click_Radibutton():
@@ -380,6 +382,8 @@ def frame_project_one():
     root.mainloop()
 
 # Frame Project 2
+# 當使用 Radio Button ，會改變 Label 顏色，但不會改變文字
+# 輸入名字，再按下執行，會改變文字
 def frame_project_two():
     # color_radiobutton
     def color_radiobutton():
@@ -445,6 +449,7 @@ def frame_project_two():
     root.mainloop()
 
 # Frame Project 3
+# 按下重新顯示，會重新排列3張圖片
 def frame_project_three():
     # 重新顯示
     def do_shuffle():
