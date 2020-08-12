@@ -69,10 +69,24 @@ def set_section():
     section.top_margin = Cm(1.27)
     section.bottom_margin = Cm(1.27)
 
+
+# 對 require_store 進行切割
+def name_split(require_store):
+    re = []
+
+    # 將 '~' 去掉
+    for i in require_store:
+        re.append(i[0].split('~'))
+
+    return re
+
+
 # 執行 doc
-def do_doc(require_area,require_store):
+def do_doc(require_area,require_date,require_store):
     # 輸出doc的數量
     doc_count = len(require_store)
+    # 對 require_store 進行切割
+    require_store = name_split(require_store)
 
     # 共執行幾次
     for count in range(0, doc_count):
@@ -83,18 +97,18 @@ def do_doc(require_area,require_store):
 
 
         # 找出符合 require_store 的門市資料
-        for bbb in require_store[count]:
+        for store_name in require_store[count]:
             for j in range(0, len(use_store_db(require_area))):
-                if (bbb == use_store_db(require_area)[j][2]):
+                if (store_name == use_store_db(require_area)[j][2]):
                     allow_store.append(use_store_db(require_area)[j])
 
-        # 寫入doc
+        # 寫入doc(Zone:區域、cls:區課、name:門市名稱、date:日期、brand:查核廠牌、number:財產編號、radiation:微波外洩、power:微波功率、Components_01 Components_02:更換零件、question_01:異常)
         for Zone, cls, name, date, brand, number, radiation, power, Components_01, Components_02, question_01 in allow_store:
             row_cells = table.add_row().cells
             row_cells[0].text = Zone
             row_cells[1].text = cls
             row_cells[2].text = name
-            row_cells[3].text = date
+            row_cells[3].text = require_date[count] # 設定日期
             row_cells[4].text = brand
             row_cells[5].text = number
             row_cells[6].text = ('%.2f' % random.uniform(0.11, 0.29))  # 保留小數點第二位，並保留0
@@ -104,7 +118,9 @@ def do_doc(require_area,require_store):
             row_cells[10].text = question_01
 
         # 輸出的doc的名稱
-        doc_name = 'AI 技術可以讓隱藏於暗處的物品現形' + str(count) + '.docx'
+        if((count+1) < 10): doc_name = '109年09~109年10'+ require_area +'課000' + str(count+1) + '.docx'
+        else: doc_name = '109年09~109年10'+ require_area +'課00' + str(count+1) + '.docx'
+
         # 輸出 docx
         doc.save(doc_name)
 

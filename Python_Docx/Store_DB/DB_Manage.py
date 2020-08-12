@@ -1,3 +1,7 @@
+'''
+資料庫管理
+'''
+
 # 從 名為Store_DB的package 中的 Yunlin_DB.py import Yunlin_Store 並叫做Store_Yun
 # 雲林課
 from Store_DB.Yunlin_DB import Yunlin_Store as Store_Yun
