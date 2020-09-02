@@ -42,4 +42,8 @@
 * pack、grid、place。
 * 負責定位元件。
 
+### Python_Tkinter_Events_Bindings.py
+* 事件(Events)、綁定(Bindings)。
+* Events 元件要處理的程序。
+* Bindings 將元件和事件綁在一起。
 
