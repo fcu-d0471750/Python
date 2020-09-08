@@ -47,3 +47,7 @@
 * Events 元件要處理的程序。
 * Bindings 將元件和事件綁在一起。
 
+### Python_Tkinter_Listbox_Scrollbar.py
+* 表單(Listbox)、卷軸(Scrollbar)
+* Listbox 顯示一系列選項的元件，使用者可以單個項目、多個項目選擇。
+* Scrollbar 當 Listbox 的項目太多時，有些項目無法顯示，透過 Scrollbar 顯示這些項目。
