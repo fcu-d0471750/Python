@@ -78,7 +78,7 @@ print(list_print) # 此行勿改
 '''
 
 '''
-# 此行勿改
+# 此dict勿改
 stock_dict = {
     "number":['1000','1011','1033','1054','1900'],
     "prices": [99, 50, 148, 245, 12],
@@ -104,14 +104,43 @@ print(stock_list)  # 此行勿改
 
 
 
+'''
+輸入兩個正整數，並寫一個函式max(input1,input2)，來回傳較大的整數，如果兩者一樣大，則印出相等。
+'''
+
+'''
+def max(input1,input2): # 此行勿改
+    if (input1 > input2): return input1
+    elif (input1 < input2): return input2
+    return "相等"
+
+input1 = eval(input()) # 此行勿改
+input2 = eval(input()) # 此行勿改
+
+output = max(input1,input2)
+
+print(output) # 此行勿改
+'''
 
 
+'''
+1個List會包含許多不同型態的資料，但我們只需要int型態的資料，寫一個函式把其他型態的資料剔除，還一個乾淨的List。
+'''
 
+'''
+def filter(input_list): # 此行勿改
+    temp = []
+    for i in input_list:
+        if(type(i) == int): temp.append(i)
 
+    return  temp
 
+input_list = [1,5,'A','jack',True,[],False] # 此行勿改
 
+output = filter(input_list) # 此行勿改
 
-
+print(output) # 此行勿改
+'''
 
 
 
