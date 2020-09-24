@@ -1,27 +1,32 @@
 
 
 '''
-現在有一個List，裡面的數字都已經由小到大排序好，現在會隨機加入一個正整數，請寫出當這個整數放入List後進行排序。
+現在有一個List，裡面的數字都是字串形態，現在會隨機加入一個正整數，請寫出當這個整數放入List後進行排序。
 '''
 
-'''
 
-original_list = [1 ,4, 5, 16, 23, 31, 48, 95, 123 ,1514] # 此行勿改
+#original_list = [1,4,5,16,23,31,48,95,123,1514] # 此行勿改
+'''
+input_string = input()  # 此行勿改
+
+original_list = input_string.split(',')  # 此行勿改
+
+new_list = []  # 此行勿改
 
 new_input = eval(input()) # 此行勿改
 
 
 original_list.append(new_input)
 
-original_list.sort()
+for i in original_list:
+    new_list.append(int(i))
 
+new_list.sort()
 
+for count in range(len(new_list)): # 此行勿改
+    print(new_list[count],end=' ') # 此行勿改
 
-print(original_list) # 此行勿改
 '''
-
-
-
 
 
 '''
@@ -46,12 +51,25 @@ print(original_list_one) # 此行勿改
 共有三門課，10位學生(S1~S10)，每位學生都有各自選的課程，請印出有選2門課以上(包含2門)的學生。
 '''
 '''
-C1 = {'S2','S5','S8','S9'} # 此行勿改
-C2 = {'S10','S6','S4','S5'} # 此行勿改
-C3 = {'S2','S3','S4','S5'} # 此行勿改
+#C1 = {'S2','S5','S8','S9'} # 此行勿改
+#C2 = {'S10','S6','S4','S5'} # 此行勿改
+#C3 = {'S2','S3','S4','S5'} # 此行勿改
+
+input_string  = input()  # 此行勿改
+original_list = input_string.split(' ')  # 此行勿改
+C1 = set(original_list) # 此行勿改
+
+input_string  = input()  # 此行勿改
+original_list = input_string.split(' ')  # 此行勿改
+C2 = set(original_list) # 此行勿改
+
+input_string  = input()  # 此行勿改
+original_list = input_string.split(' ')  # 此行勿改
+C3 = set(original_list) # 此行勿改
 
 list_set = [] # 此行勿改
 list_print = [] # 此行勿改
+
 
 list_set.extend(list(C1&C2))
 list_set.extend(list(C1&C3))
@@ -69,8 +87,8 @@ for i in list_set:
 list_print.sort()
 
 print(list_print) # 此行勿改
-
 '''
+
 
 
 '''
@@ -141,6 +159,146 @@ output = filter(input_list) # 此行勿改
 
 print(output) # 此行勿改
 '''
+
+'''
+set去重，一個字串裡面包含著重複的英文字母，請印出這個字串包含的英文字母。ajldjlajfdljfddd  dsgsdgdfasfsdgmhm
+'''
+
+'''
+input_string  = input() # 此行勿改
+res = [] # 此行勿改
+
+b = list(input_string)
+
+res = sorted(set(b))
+
+for count in range(len(res)): # 此行勿改
+    print(res[count],end='') # 此行勿改
+
+'''
+
+'''
+tall_list = input().split(',')  # 此行勿改
+new_tall = eval(input()) # 此行勿改
+tall_list = list(map(int,tall_list)) # 此行勿改
+
+new_list = tall_list[:]
+new_list.append(new_tall)
+new_list.sort()
+
+# 以下勿改
+for h in new_list:
+   print(h, end=' ')
+'''
+
+
+'''
+c = "25 40 15 36 42"
+city = 'taoyuan taichung hsinchu tainan changhua'
+
+c = c.split()
+city = city.split()
+
+c2 = [int(i)*9/5 + 32 for i in c]
+hot_city = []
+
+for i, t in enumerate(c2):
+   if t > 100:
+      hot_city.append(city[i])
+
+for ht in hot_city:
+   print (ht)
+'''
+
+'''
+names = 'mary joe evo robert'
+eng = '25,33,39,66'
+math = '78,44,70,67'
+phy = '90,60,45,40'
+
+names = names.split()
+eng = eval(eng)
+math = eval(math)
+phy = eval(phy)
+
+g_pass = []
+for i, name in enumerate(names):
+  av = (eng[i] + math[i] + phy[i])/3
+  if (av >= 60):
+    g_pass.append(names[i])
+
+print (' '.join(g_pass))
+'''
+'''
+names = 'x f q e'
+eng = '45, 70, 85, 55'
+math = '19, 85, 65, 36'
+phy = '99, 100, 50, 99'
+
+names = names.split()
+eng = eval(eng)
+math = eval(math)
+phy = eval(phy)
+
+eng_av = sum(eng)/len(eng)
+math_av = sum(math)/len(math)
+phy_av = sum(phy)/len(phy)
+
+g_good = []
+for i, name in enumerate(names):
+  higher_grade = (eng[i] >= eng_av and math[i] >= math_av and phy[i] >= phy_av)
+  if (higher_grade):
+    g_good.append(name)
+
+print (' '.join(g_good))
+
+'''
+
+
+
+'''
+health = input()
+#{"John": {"height": 171, "weight": 50}, "Nick": {"height": 175, "weight": 65}}
+#{"Mary": {"height": 154, "weight": 40}, "Nicolas": {"height": 180, "weight": 85}, "Nei": {"height": 168, "weight": 55}, "Gold": {"height": 175, "weight": 75}}
+import json
+health = json.loads(health)
+high_bmi = 0
+
+for name, h in health.items():
+  bmi = h['weight']/(h['height']/100)**2
+  if (bmi > high_bmi):
+    high_bmi = bmi
+    r = name
+
+print (r)
+'''
+
+'''
+myDic = '{"seagull":"海鷗", "pigeon":"鴿子", "crane":"鶴", "eagle":"老鷹", "sparrow":"麻雀"}'
+find = input()
+import json
+myDic = json.loads(myDic)
+
+
+
+myDic2 = {}
+for eng, ch in myDic.items():
+   if(ch == find):
+    print (eng)
+
+'''
+import traceback
+s = "import time;print(time.localtime())"
+try:
+    code = compile(s, '<string>', 'exec')
+    exec(code)
+except Exception as e:
+    print(traceback.format_exc())
+
+
+
+
+
 
 
 
