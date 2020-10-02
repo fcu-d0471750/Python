@@ -287,6 +287,8 @@ for eng, ch in myDic.items():
     print (eng)
 
 '''
+
+'''
 import traceback
 s = "import time;print(time.localtime())"
 try:
@@ -295,10 +297,38 @@ try:
 except Exception as e:
     print(traceback.format_exc())
 
+'''
 
 
+'''
+修課學生
+'''
 
+'''
+c1 = input().split(' ')  # 此行勿改
+c2 = input().split(' ')  # 此行勿改
+c3 = input().split(' ')  # 此行勿改
 
+c_all = []
+c_all.extend(c1)
+c_all.extend(c2)
+c_all.extend(c3)
+
+s_all = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10']
+
+t0 = [x for x in s_all if c_all.count(x) == 0]
+t1 = [x for x in s_all if c_all.count(x) == 1]
+t2 = [x for x in s_all if c_all.count(x) == 2]
+t3 = [x for x in s_all if c_all.count(x) == 3]
+
+print('-' if len(t0) == 0 else ' '.join(t0))
+print('-' if len(t1) == 0 else ' '.join(t1))
+print('-' if len(t2) == 0 else ' '.join(t2))
+print('-' if len(t3) == 0 else ' '.join(t3))
+'''
+#print('-' if len(t1) == 0 else ' '.join(t1))
+#print('-' if len(t2) == 0 else ' '.join(t2))
+#print('-' if len(t3) == 0 else ' '.join(t3))
 
 
 
