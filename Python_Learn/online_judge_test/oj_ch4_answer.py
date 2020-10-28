@@ -209,55 +209,39 @@ print(t2)
 print(t3)
 '''
 
-target={'s1': 0, 's2': 0, 's3': 0, 's4': 0, 's5': 0, 's6': 0, 's7': 0, 's8': 0, 's9': 0, 's10': 0}
-st=[]
+target=["s1",0,"s2",0,"s3",0,"s4",0,"s5",0,"s6",0,"s7",0,"s8",0,"s9",0,"s10",0]
+
+for i in c1:
+  if i == "s1" : target[1] = target[1] + 1
+  if i == "s2": target[3] = target[3] + 1
+  if i == "s3": target[5] = target[5] + 1
+  if i == "s4": target[7] = target[7] + 1
+  if i == "s5": target[9] = target[9] + 1
+  if i == "s6": target[11] = target[11] + 1
+  if i == "s7": target[13] = target[13] + 1
+  if i == "s8": target[15] = target[15] + 1
+  if i == "s9": target[17] = target[17] + 1
+  if i == "s10": target[19] = target[19] + 1
 
 
-
-#計數
-for ci, cv in enumerate(c1):
-  if c1[ci] in target:
-    target[c1[ci]] = target[c1[ci]] + 1
-  else:
-    target[c1[ci]]=1
 #分類
 t0 =[]
 t1 =[]
 t2 =[]
 t3 =[]
-for (key, value) in target.items():
-  if(value == 0) : t0.append(key)
-  if (value == 1): t1.append(key)
-  if (value == 2): t2.append(key)
-  if (value == 3): t3.append(key)
-
+number = 0
+for j in target:
+  if(j == 0) : t0.append(target[number-1])
+  if (j == 1): t1.append(target[number-1])
+  if (j == 2): t2.append(target[number-1])
+  if (j == 3): t3.append(target[number-1])
+  number = number + 1
 #輸出、並處理0轉-的值
 print('-' if len(t0) == 0 else ' '.join(t0))
 print('-' if len(t1) == 0 else ' '.join(t1))
 print('-' if len(t2) == 0 else ' '.join(t2))
 print('-' if len(t3) == 0 else ' '.join(t3))
 
-
-
-'''
-c_all = []
-c_all.extend(c1)
-c_all.extend(c2)
-c_all.extend(c3)
-
-s_all = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10']
-
-t0 = [x for x in s_all if c_all.count(x) == 0]
-t1 = [x for x in s_all if c_all.count(x) == 1]
-t2 = [x for x in s_all if c_all.count(x) == 2]
-t3 = [x for x in s_all if c_all.count(x) == 3]
-
-
-print('-' if len(t0) == 0 else ' '.join(t0))
-print('-' if len(t1) == 0 else ' '.join(t1))
-print('-' if len(t2) == 0 else ' '.join(t2))
-print('-' if len(t3) == 0 else ' '.join(t3))
-'''
 
 
 
