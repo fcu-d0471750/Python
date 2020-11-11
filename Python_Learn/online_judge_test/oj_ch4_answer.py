@@ -110,7 +110,7 @@ for count in range(len(res)):
 '''
 
 '''
-4.6  OJ 修課的學生
+4.6  OJ 修課的學生(List版本)
 '''
 
 '''
@@ -139,6 +139,39 @@ print('-' if len(t2) == 0 else ' '.join(t2))
 print('-' if len(t3) == 0 else ' '.join(t3))
 '''
 
+'''
+4.6  OJ 修課的學生(Dict版本)
+'''
+
+'''
+c1 = input().split(' ')  # 此行勿改
+c2 = input().split(' ')  # 此行勿改
+c3 = input().split(' ')  # 此行勿改
+
+Mydict = {"s1":0,"s2":0,"s3":0,"s4":0,"s5":0,"s6":0,"s7":0,"s8":0,"s9":0,"s10":0}
+c_all = []
+c_all.extend(c1)
+c_all.extend(c2)
+c_all.extend(c3)
+t0 = []
+t1 = []
+t2 = []
+t3 = []
+
+for name in c_all:
+  Mydict[name] = Mydict[name] + 1
+
+for key,value in Mydict.items():
+  if(value==0): t0.append(key)
+  if(value==1): t1.append(key)
+  if(value==2): t2.append(key)
+  if(value==3): t3.append(key)
+
+print('-' if len(t0) == 0 else ' '.join(t0))
+print('-' if len(t1) == 0 else ' '.join(t1))
+print('-' if len(t2) == 0 else ' '.join(t2))
+print('-' if len(t3) == 0 else ' '.join(t3))
+'''
 
 '''
 4.7 誰的 BMI 最高
@@ -177,37 +210,16 @@ for eng,ch in myDic.items():
 '''
 
 
-
+'''
 c1 = input().split(' ')  # 此行勿改
 c2 = input().split(' ')  # 此行勿改
 c3 = input().split(' ')  # 此行勿改
 
 # 印出時請注意格式，避免有多餘的空格
 # Write Your Code
-#sum_c=c1.extend(c2)
 
 c1.extend(c2)
 c1.extend(c3)
-
-'''
-s_all = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10']
-
-t0 = [x for x in s_all if c1.count(x) == 0]
-t1 = [x for x in s_all if c1.count(x) == 1]
-t2 = [x for x in s_all if c1.count(x) == 2]
-t3 = [x for x in s_all if c1.count(x) == 3]
-
-
-print('-' if len(t0) == 0 else ' '.join(t0))
-print('-' if len(t1) == 0 else ' '.join(t1))
-print('-' if len(t2) == 0 else ' '.join(t2))
-print('-' if len(t3) == 0 else ' '.join(t3),end='')
-
-print(t0)
-print(t1)
-print(t2)
-print(t3)
-'''
 
 target=["s1",0,"s2",0,"s3",0,"s4",0,"s5",0,"s6",0,"s7",0,"s8",0,"s9",0,"s10",0]
 
@@ -241,8 +253,66 @@ print('-' if len(t0) == 0 else ' '.join(t0))
 print('-' if len(t1) == 0 else ' '.join(t1))
 print('-' if len(t2) == 0 else ' '.join(t2))
 print('-' if len(t3) == 0 else ' '.join(t3))
+'''
+
+'''
+c1 = input().split(' ')  # 此行勿改
+c2 = input().split(' ')  # 此行勿改
+c3 = input().split(' ')  # 此行勿改
+
+# 印出時請注意格式，避免有多餘的空格
+# Write Your Code
+c1.extend(c2)
+c1.extend(c3)
+
+myLists1 = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10",]
+#target={'s1': 0, 's2': 0, 's3': 0, 's4': 0, 's5': 0, 's6': 0, 's7': 0, 's8': 0, 's9': 0, 's10': 0}
+target =  dict.fromkeys(myLists1, 0)
+x=0
+st=[]
+
+#計數
+for ci, cv in enumerate(c1):
+  if c1[ci] in target:
+    target[c1[ci]]+=1
+  else:
+    target[c1[ci]]=1
+
+t0 =[]
+t1 =[]
+t2 =[]
+t3 =[]
+
+for key,value in target.items():
+  if (value == 0): t0.append(str(key))
+  if (value == 1): t1.append(str(key))
+  if (value == 2): t2.append(str(key))
+  if (value == 3): t3.append(str(key))
 
 
+#輸出、並處理0轉-的值
+print('-' if len(t0) == 0 else ' '.join(t0))
+print('-' if len(t1) == 0 else ' '.join(t1))
+print('-' if len(t2) == 0 else ' '.join(t2))
+print('-' if len(t3) == 0 else ' '.join(t3))
+'''
+
+'''
+#分類
+count_s=["","","",""]
+for (key, value) in target.items():
+  if len(count_s[value])<1:
+    count_s[value]=key
+  else:
+    count_s[value]=count_s[value]+" "+key
+
+#輸出、並處理0轉-的值
+for i in count_s:
+  if len(i)==0:
+    print("-")
+  else:
+    print(i)
+'''
 
 
 
